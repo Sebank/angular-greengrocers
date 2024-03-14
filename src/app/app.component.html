@@ -1,9 +1,36 @@
 <header id="store">
   <h1>Greengrocers</h1>
+  <select (change)="filterItems()" [(ngModel)]="filter">
+    <option value="all">All</option>
+    <option value="vegetable">Vegetable</option>
+    <option value="fruit">Fruit</option>
+  </select>
+  <select (change)="sortItems()" [(ngModel)]="sort">
+    <option value="name">Name</option>
+    <option value="price">Price</option>
+  </select>
+  <div class="store--item-list">
+    <ul *ngFor="let item of grocers" >
+      <app-item [item]="item" (update)="updateStatus($event)"></app-item>
+    </ul>
+
+  </div>
   <!-- your store here -->
 </header>
 <main id="cart">
   <h2>Your Cart</h2>
-  <!-- your cart here -->
+    <div class="cart--item-list-container">
+      <ul class="item-list cart--item-list">
+        <app-cart *ngFor="let item of cart" [item]="item" (add)="updateStatus($event)" (remove)="removeItem($event)"/>
+        <!-- your cart here -->
+      </ul>
+    </div>
   <!-- your total here -->
+  <div>
+    <h3>Total</h3>
+  </div>
+  
+  <div>
+    <span class="total-number">{{total | currency}}</span>
+  </div>
 </main>
